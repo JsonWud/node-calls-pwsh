@@ -6,7 +6,7 @@ param(
 # Always show this to confirm what we're receiving before conversion
 $myTestPattern = [ordered]@{
     prop1 = 'value1'
-    prop2 = $MyArg
+    prop2 = $MyJsonPayload
     prop3 = @{
         array1 = @('a', 'b', 'c')
     }
