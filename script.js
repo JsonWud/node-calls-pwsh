@@ -15,7 +15,7 @@ testRequest = {
 // Use node's child_process to spawn a pwsh process to run a script
 const { spawn } = require('child_process');
 const requestJson = testRequest ? JSON.stringify(testRequest) : '';
-const child = spawn('pwsh', ['./script.ps1', requestJson], { windowsVerbatimArguments: true });
+const child = spawn('pwsh', ['./script.ps1', requestJson]);
 child.stdout.on('data', (data) => {
     console.log(`stdout: ${data}`);
 });
