@@ -15,13 +15,22 @@ testRequest = {
 // Use node's child_process to spawn a pwsh process to run a script
 const { spawn } = require('child_process');
 const requestJson = testRequest ? JSON.stringify(testRequest) : '';
-const child = spawn('pwsh', ['./script.ps1', requestJson]);
-child.stdout.on('data', (data) => {
-    console.log(`stdout: ${data}`);
-});
-child.stderr.on('data', (data) => {
-    console.error(`stderr: ${data}`);
-});
-child.on('close', (code) => {
-    console.log(`|;|;|;|;|;|   pwsh child process exited with code ${code}  |;|;|;|;|;|`);
-});
+
+async function runScript() {
+    try {
+        const child = await spawn('pwsh', ['./script.ps1', requestJson]);
+        child.stdout.on('data', (data) => {
+            console.log(`stdout: ${data}`);
+        });
+        child.stderr.on('data', (data) => {
+            console.error(`stderr: ${data}`);
+        });
+        child.on('close', (code) => {
+            console.log(`|;|;|;|;|;|   pwsh child process exited with code ${code}  |;|;|;|;|;|`);
+        });
+    } catch (error) {
+        console.error(error);
+    }
+}
+
+runScript();
